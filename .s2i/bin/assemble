@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+echo "---> Copying application source ..."
+cp -Rf /tmp/src/. ./
+
+echo "---> Installing dependencies ..."
+dotnet restore -s https://dotnet.myget.org/F/aspnetcore-dev/api/v3/index.json
+
+echo "---> Building application from source ..."
+DOTNET_CONFIGURATION="${DOTNET_CONFIGURATION:-Release}"
+DOTNET_FRAMEWORK="${DOTNET_FRAMEWORK:-netcoreapp1.0}"
+
+dotnet build -f "$DOTNET_FRAMEWORK" -c "$DOTNET_CONFIGURATION"
+
+# Fix source directory permissions
+fix-permissions ./
+# set permissions for any installed artifacts
+fix-permissions /opt/app-root
