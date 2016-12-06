@@ -6,7 +6,7 @@ echo "---> Copying application source ..."
 cp -Rf /tmp/src/. ./
 
 echo "---> Installing dependencies ..."
-dotnet restore -s https://dotnet.myget.org/F/aspnetcore-dev/api/v3/index.json
+dotnet restore 
 
 echo "---> Building application from source ..."
 DOTNET_CONFIGURATION="${DOTNET_CONFIGURATION:-Release}"
